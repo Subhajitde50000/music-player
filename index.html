@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player | Shreya </title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="top-bar">
+      <i class="material-icons">expand_more</i>
+      <span>My Song time</span>
+      <!-- Add dark mode toggle button -->
+      <i id="dark-mode-toggle" class="material-icons" title="Toggle dark mode">brightness_4</i>
+      <i class="material-icons">more_horiz</i>
+    </div>
+    <!-- ... existing code ... -->
+    <div class="img-area">
+      <img src="" alt="">
+    </div>
+    <div class="song-details">
+      <p class="name"></p>
+      <p class="artist"></p>
+    </div>
+    <div class="progress-area">
+      <div class="progress-bar">
+        <audio id="main-audio" src=""></audio>
+      </div>
+      <div class="song-timer">
+        <span class="current-time">0:00</span>
+        <span class="max-duration">0:00</span>
+      </div>
+    </div>
+    <div class="controls">
+      <i id="repeat-plist" class="material-icons" title="Playlist looped">repeat</i>
+      <i id="skip-backward" class="material-icons" title="Skip 5 seconds backward">replay_5</i>
+      <i id="prev" class="material-icons">skip_previous</i>
+      <div class="play-pause">
+        <i class="material-icons play">play_arrow</i>
+      </div>
+      <i id="next" class="material-icons">skip_next</i>
+      <i id="skip-forward" class="material-icons" title="Skip 5 seconds forward">forward_5</i>
+      <i id="more-music" class="material-icons">queue_music</i>
+    </div>
+    
+    <!-- Add volume control container -->
+    <div class="volume-container">
+      <i class="material-icons volume-icon" id="volume-icon">volume_up</i>
+      <div class="volume-slider">
+        <div class="volume-bar">
+          <div class="volume-progress"></div>
+        </div>
+      </div>
+    </div>
+    <div class="music-list">
+      <div class="header"></div>
+      <div class="header">
+        <div class="row">
+          <i class= "list material-icons">queue_music</i>
+          <span>Music list</span>
+        </div>
+        <i id="close" class="material-icons">close</i>
+      </div>
+      <!-- Add upload button -->
+      <div class="upload-container">
+        <label for="upload-song" class="upload-btn">
+          <i class="material-icons">add</i>
+          <span>Upload Music</span>
+        </label>
+        <input type="file" id="upload-song" accept="audio/*" multiple hidden>
+      </div>
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search songs...">
+        <i class="material-icons search-icon">search</i>
+      </div>
+      <div class="filter-container">
+        <select id="filter-options">
+          <option value="default">Default Order</option>
+          <option value="name-asc">Name (A-Z)</option>
+          <option value="name-desc">Name (Z-A)</option>
+          <option value="artist-asc">Artist (A-Z)</option>
+          <option value="artist-desc">Artist (Z-A)</option>
+        </select>
+        <i class="material-icons filter-icon">filter_list</i>
+      </div>
+      <ul>
+        <!-- here li list are coming from js -->
+      </ul>
+    </div>
+
+  <script src="js/music-list.js"></script>
+  <script src="js/script.js"></script>
+
+</body>
+</html>

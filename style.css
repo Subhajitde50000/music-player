@@ -1,0 +1,619 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --pink: #ff74a4;
+  --violet: #9f6ea3;
+  --lightblack: #515C6F;
+  --white: #ffffff;
+  --darkwhite: #cecaca;
+  --pinkshadow: #ffcbdd;
+  --lightbshadow: rgba(0, 0, 0, 0.15);
+
+  --background: #ffffff;
+  --card-bg: #ffffff;
+  --text-color: #515C6F;
+  --input-bg: #cecaca;
+  --border-color: #E5E5E5;
+}
+
+/* Dark mode colors */
+body.dark-mode {
+  --pink: #ff74a4;
+  --violet: #9f6ea3;
+  --lightblack: #E0E0E0;
+  --white: #212121;
+  --darkwhite: #333333;
+  --pinkshadow: rgba(255, 116, 164, 0.15);
+  --lightbshadow: rgba(0, 0, 0, 0.4);
+  
+  --background: #121212;
+  --card-bg: #1E1E1E;
+  --text-color: #E0E0E0;
+  --input-bg: #333333;
+  --border-color: #444444;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--background);
+  background: linear-gradient(var(--pink) 0%, var(--violet) 100%); 
+  transition: all 0.3s ease;
+}
+
+.wrapper {
+  width: 380px;
+  padding: 25px 30px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 15px;
+  background: var(--card-bg);
+  box-shadow: 0px 6px 15px var(--lightbshadow);
+  transition: all 0.3s ease;
+}
+.wrapper i {
+  cursor: pointer;
+}
+
+.top-bar,
+.progress-area .song-timer,
+.controls,
+.music-list .header,
+.music-list ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-bar i {
+  font-size: 30px;
+  color: var(--lightblack);
+}
+
+.top-bar i:first-child {
+  margin-left: -7px;
+}
+
+.top-bar span {
+  font-size: 18px;
+  margin-left: -3px;
+  color: var(--lightblack);
+}
+
+
+.top-bar i, 
+.song-details p, 
+.song-timer span,
+.music-list .header .row span,
+.music-list ul li .row span,
+.music-list ul li .row p {
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.img-area {
+  width: 100%;
+  height: 256px;
+  overflow: hidden;
+  margin-top: 25px;
+  border-radius: 15px;
+  /* box-shadow: 0px 6px 12px var(--lightbshadow); */
+}
+
+/* Add loading animation for smoother transitions */
+.img-area.loading {
+  position: relative;
+}
+
+.img-area.loading::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+}
+
+.img-area.loading::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--violet);
+  z-index: 2;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add transition for smoother image changes */
+.img-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s ease;
+}
+
+.song-details {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.song-details p {
+  color: var(--lightblack);
+}
+
+.song-details .name {
+  font-size: 21px;
+}
+
+.song-details .artist {
+  font-size: 18px;
+  opacity: 0.9;
+  line-height: 35px;
+}
+
+.progress-area {
+  height: 6px;
+  width: 100%;
+  border-radius: 50px;
+  background: #f0f0f0;
+  cursor: pointer;
+}
+
+.progress-area .progress-bar {
+  height: inherit;
+  width: 0%;
+  position: relative;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--pink) 0%, var(--violet) 100%);
+}
+
+.progress-bar::before {
+  content: "";
+  position: absolute;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  top: 50%;
+  right: -5px;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%);
+  background: inherit;
+  transition: opacity 0.2s ease;
+}
+
+.progress-area:hover .progress-bar::before {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.progress-area .song-timer {
+  margin-top: 2px;
+}
+
+.song-timer span {
+  font-size: 13px;
+  color: var(--lightblack);
+}
+
+.controls {
+  margin: 40px 0 5px 0;
+}
+
+/* Add smooth transitions for controls */
+.controls i {
+  font-size: 28px;
+  user-select: none;
+  background: linear-gradient(var(--pink) 0%, var(--violet) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: transform 0.2s ease;
+}
+
+.controls i:hover {
+  transform: scale(1.1);
+}
+
+.controls i:nth-child(2),
+.controls i:nth-child(4) {
+  font-size: 43px;
+}
+
+.controls #prev {
+  margin-right: -13px;
+}
+
+.controls #next {
+  margin-left: -13px;
+}
+
+.controls .play-pause {
+  height: 54px;
+  width: 54px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(var(--white) 0%, var(--darkwhite) 100%);
+  box-shadow: 0px 0px 5px var(--pink);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.controls .play-pause:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 15px var(--pinkshadow);
+}
+
+
+/* Add styling for 5-second skip buttons */
+#skip-backward, #skip-forward {
+  font-size: 24px; /* Slightly smaller than main controls */
+  transition: transform 0.2s ease;
+}
+
+#skip-backward:hover, #skip-forward:hover {
+  transform: scale(1.1);
+}
+
+/* Adjust spacing in controls to accommodate new buttons */
+.controls {
+  margin: 40px 0 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Make sure all controls fit well */
+.controls i {
+  margin: 0 -2px;
+}
+
+
+/* Volume control styles */
+.volume-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0 20px;
+}
+
+.volume-icon {
+  margin-right: 15px;
+  font-size: 25px;
+  cursor: pointer;
+  background: linear-gradient(var(--pink) 0%, var(--violet) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.volume-slider {
+  width: 80%;
+}
+
+.volume-bar {
+  height: 5px;
+  width: 100%;
+  border-radius: 50px;
+  background: #f0f0f0;
+  cursor: pointer;
+  position: relative;
+}
+
+.volume-progress {
+  height: inherit;
+  width: 100%;
+  position: absolute;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--pink) 0%, var(--violet) 100%);
+}
+
+.volume-progress::before {
+  content: "";
+  position: absolute;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  top: 50%;
+  right: -5px;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%);
+  background: inherit;
+  transition: opacity 0.2s ease;
+}
+
+.volume-bar:hover .volume-progress::before {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Adjust spacing between controls and volume slider */
+.controls {
+  margin-bottom: 15px;
+}
+.play-pause::before {
+  position: absolute;
+  content: "";
+  height: 43px;
+  width: 43px;
+  border-radius: inherit;
+  background: linear-gradient(var(--pink) 0%, var(--violet) 100%);
+}
+
+.play-pause i {
+  height: 43px;
+  width: 43px;
+  line-height: 43px;
+  text-align: center;
+  background: inherit;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: absolute;
+}
+/* ... existing code ... */
+
+/* Search bar styles */
+.search-container {
+  position: relative;
+  margin: 15px 0;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 10px 15px;
+  padding-right: 40px;
+  border-radius: 30px;
+  border: 1px solid #E5E5E5;
+  outline: none;
+  font-size: 14px;
+  color: var(--lightblack);
+  background: var(--darkwhite);
+  transition: all 0.2s ease;
+}
+
+.search-container input:focus {
+  border-color: var(--violet);
+  background: var(--white);
+  box-shadow: 0 0 5px rgba(159, 110, 163, 0.3);
+}
+
+.search-container .search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--lightblack);
+  cursor: pointer;
+}
+
+.search-container input,
+.filter-container select {
+  background: var(--input-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+  transition: all 0.3s ease;
+}
+
+/* Ensures proper spacing after adding search */
+.music-list ul {
+  margin: 5px 0 10px;
+}
+.music-list {
+  position: absolute;
+  /* background: var(--white); */
+  background: var(--card-bg);
+  width: 100%;
+  left: 0;
+  bottom: -55%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  padding: 15px 30px;
+  border-radius: 15px;
+  box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.music-list.show {
+  bottom: 0;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ... existing code ... */
+
+/* Filter dropdown styles */
+.filter-container {
+  position: relative;
+  margin: 10px 0 15px;
+}
+
+.filter-container select {
+  width: 100%;
+  padding: 8px 15px;
+  padding-right: 40px;
+  border-radius: 30px;
+  border: 1px solid #E5E5E5;
+  outline: none;
+  font-size: 14px;
+  color: var(--lightblack);
+  background: var(--darkwhite);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: all 0.2s ease;
+}
+
+.filter-container select:focus {
+  border-color: var(--violet);
+  background: var(--white);
+  box-shadow: 0 0 5px rgba(159, 110, 163, 0.3);
+}
+
+.filter-container .filter-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--lightblack);
+  pointer-events: none;
+}
+
+/* Adjust spacing between search and filter */
+.search-container {
+  margin-bottom: 10px;
+}
+
+/* Ensure proper spacing after adding filter */
+.music-list ul {
+  margin: 5px 0 10px;
+}
+
+.header .row {
+  display: flex;
+  align-items: center;
+  font-size: 19px;
+  color: var(--lightblack);
+}
+
+.header .row i {
+  cursor: default;
+}
+
+.header .row span {
+  margin-left: 5px;
+}
+
+.header #close {
+  font-size: 22px;
+  color: var(--lightblack);
+}
+
+.music-list ul {
+  margin: 10px 0;
+  max-height: 260px;
+  overflow: auto;
+}
+
+
+.music-list ul::-webkit-scrollbar {
+  width: 0px;
+}
+
+.music-list ul li {
+  list-style: none;
+  display: flex;
+  cursor: pointer;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+  color: var(--lightblack);
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.music-list ul li:last-child {
+  border-bottom: 0px;
+}
+
+.music-list ul li .row span {
+  font-size: 17px;
+}
+
+.music-list ul li .row p {
+  opacity: 0.9;
+}
+
+ul li .audio-duration {
+  font-size: 16px;
+}
+
+ul li.playing {
+  pointer-events: none;
+  color: var(--violet);
+}
+
+/* Dark mode toggle button */
+#dark-mode-toggle {
+  margin-left: auto;
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+
+#dark-mode-toggle:hover {
+  transform: rotate(30deg);
+}
+
+/* ... existing code ... */
+
+/* Upload button styles */
+.upload-container {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.upload-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 15px;
+  background: linear-gradient(90deg, var(--pink) 0%, var(--violet) 100%);
+  color: var(--white);
+  border-radius: 30px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.upload-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 3px 8px var(--pinkshadow);
+}
+
+.upload-btn i {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+/* Ensure proper spacing after adding upload button */
+.search-container {
+  margin-top: 15px;
+}
